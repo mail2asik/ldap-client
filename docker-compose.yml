@@ -1,0 +1,28 @@
+services:
+
+    #Nginx Service
+    ldap-client-nginx:
+        build:
+            context: ./src/nginx
+            dockerfile: Dockerfile
+        image: ldap-client-nginx
+        container_name: ldap-client-nginx
+        restart: unless-stopped
+        ports:
+            - "83:80"
+        volumes:
+            - ./volume/config/nginx/conf.d/local:/etc/nginx/conf.d
+            
+    #PHP Service
+    ldap-client-php:
+        build:
+            context: ./src/php
+            dockerfile: Dockerfile
+        image: ldap-client-php
+        container_name: ldap-client-php
+        restart: unless-stopped
+        ports:
+            - "9003:9000"
+        volumes:
+            - ./src/php:/var/www
+
